@@ -27,11 +27,29 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="images/illustration.webp" />
+                <img src="images/illustration.webp" alt="Barbershop illustration" />
             </div>
+        </section>
+
+        <!-- BARBERS -->
+        <section>
+            <h2>Master <span class="gold">Barber</span></h2>
+            <p>Ahli dengan pengalaman bertahun-tahun</p>
+            <div class="barber-grid"></div>
         </section>
     </main>
 
     <footer></footer>
+
+    <template id="barber-card-template">
+        <div class="barber-card">
+            <img class="barber-avatar" alt="" data-bind="avatar" />
+            <div class="barber-name" data-bind="name"></div>
+            <div class="barber-role" data-bind="role"></div>
+            <div class="barber-rating" data-bind="rating"></div>
+        </div>
+    </template>
+
+    <script type="module" src="js/main.js"></script>
 </body>
 </html>
