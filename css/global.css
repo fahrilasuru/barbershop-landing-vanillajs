@@ -1,0 +1,32 @@
+:root {
+    --black: #0a0a0a;
+    --gold: #d4af37;
+    --gold-light: #f5d97a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--black);
+    font-family: "Inter", sans-serif;
+    color: #ececec;
+    line-height: 1.5;
+}
+
+.gold {
+    color: var(--gold);
+}
+
+.cta {
+    padding: 10px 28px;
+    border-radius: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
