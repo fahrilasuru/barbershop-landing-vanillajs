@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 40px;
-    padding: 60px 60px 80px;
+    padding: 60px clamp(24px, 5vw, 60px) 80px;
 }
 
 .hero-content {
@@ -12,7 +12,7 @@
 }
 
 .hero-content h1 {
-    font-size: 78px;
+    font-size: clamp(42px, 7vw, 78px);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -1px;
@@ -23,21 +23,16 @@
     margin: 20px 0 28px;
     font-size: 18px;
     color: var(--description-text-color);
+    text-align: left;
 }
 
 .hero-image {
     flex: 1 1 300px;
     overflow: hidden;
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgb(212 175 55 / 20%);
     border-radius: 30px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 20px 40px rgb(0 0 0 / 80%);
     text-align: center;
-}
-
-.hero-image img {
-    display: block;
-    max-width: 100%;
-    object-fit: cover;
 }
 
 .btn-booking {
@@ -48,7 +43,7 @@
 
 .btn-booking:hover {
     background: var(--gold-light);
-    box-shadow: 0 0 20px  rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 20px  rgb(212 175 55 / 30%);
     transform: scale(1.02);
 }
 
@@ -58,39 +53,20 @@
     color: var(--gold);
 }
 
-.barber-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 28px;
-    margin: 30px auto 20px;
-    max-width: 720px;
+.barbers-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .barber-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    max-width: 160px;
     padding: 28px 16px 10px;
-    border: 1px solid #2a2a2a;
-    border-radius: 24px;
-    background: var(--dark-grey);
-    text-align: center;
-    transition: 0.25s;
-}
-
-.barber-card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-    transform: translateY(-6px);
 }
 
 .barber-avatar {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: max(80px, 80%);
+    height: max(80px, 80%);
     margin: 0 auto 14px;
     border: 2px solid var(--gold);
     border-radius: 50%;
@@ -113,18 +89,26 @@
     letter-spacing: 2px;
 }
 
-@media (max-width: 768px) {
-    .hero {
-        padding-inline: 24px;
-    }
-
-    .hero-content h1 {
-        font-size: 42px;
-    }
+.styles-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
-@media (max-width: 480px) {
-    .hero-content h1 {
-        font-size: 54px;
-    }
+.style-card {
+    position: relative;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+}
+
+.style-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-block: 3px;
+    background: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--description-text-color);
 }

@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img src="images/illustration.webp" alt="Barbershop illustration" />
+                <img class="img-cover" src="images/illustration.webp" alt="Barbershop illustration" />
             </div>
         </section>
 
@@ -35,18 +35,32 @@
         <section>
             <h2>Master <span class="gold">Barber</span></h2>
             <p>Ahli dengan pengalaman bertahun-tahun</p>
-            <div class="barber-grid"></div>
+            <div class="grid barbers-grid"></div>
+        </section>
+
+        <!-- STYLES -->
+        <section>
+            <h2>Styles <span class="gold">Gallery</span></h2>
+            <p>Inspirasi potongan terbaik yang trendy</p>
+            <div class="grid styles-grid"></div>
         </section>
     </main>
 
     <footer></footer>
 
     <template id="barber-card-template">
-        <div class="barber-card">
+        <div class="card barber-card">
             <img class="barber-avatar" alt="" data-bind="avatar" />
             <div class="barber-name" data-bind="name"></div>
             <div class="barber-role" data-bind="role"></div>
             <div class="barber-rating" data-bind="rating"></div>
+        </div>
+    </template>
+
+    <template id="style-card-template">
+        <div class="card style-card">
+            <img class="img-cover" alt="" data-bind="photo" />
+            <div class="style-name" data-bind="name"></div>
         </div>
     </template>
 
