@@ -1,6 +1,6 @@
 function setValue(obj, data) {
     if (!Array.isArray(data)) {
-        obj.innerHTML = data;
+        obj.textContent = data;
         return;
     }
 

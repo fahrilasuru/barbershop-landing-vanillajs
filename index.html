@@ -44,6 +44,13 @@
             <p>Inspirasi potongan terbaik yang trendy</p>
             <div class="grid styles-grid"></div>
         </section>
+
+        <!-- SERVICES -->
+        <section>
+            <h2>Layanan & <span class="gold">Harga</span></h2>
+            <p>Kualitas premium untuk pelanggan kami</p>
+            <div class="grid services-grid"></div>
+        </section>
     </main>
 
     <footer></footer>
@@ -61,6 +68,16 @@
         <div class="card style-card">
             <img class="img-cover" alt="" data-bind="photo" />
             <div class="style-name" data-bind="name"></div>
+        </div>
+    </template>
+
+    <template id="service-card-template">
+        <div class="card service-card" data-bind="card">
+            <h4 class="service-name" data-bind="name"></h4>
+            <div>
+                <span class="service-price" data-bind="price"></span> /
+                <small class="service-unit" data-bind="unit"></small>
+            </div>
         </div>
     </template>
 

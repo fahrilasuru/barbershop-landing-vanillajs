@@ -25,3 +25,13 @@ renderTemplate({
         { photo: ["src", "images/mullet.webp"], name: "Mullet", },
     ],
 });
+
+renderTemplate({
+    containerSelector: ".services-grid",
+    templateId: "service-card-template",
+    items: [
+        { card: [["style", "backgroundImage"], "url(images/haircut.webp)"], name: "Haircut", price: "Rp120K", unit: "potong", },
+        { card: [["style", "backgroundImage"], "url(images/creambath.webp)"], name: "Creambath", price: "Rp150K", unit: "sesi", },
+        { card: [["style", "backgroundImage"], "url(images/coloring.webp)"], name: "Coloring", price: "Rp250K", unit: "warna", },
+    ],
+});
