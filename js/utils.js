@@ -1,20 +1,20 @@
-function setValue(obj, data) {
-    if (!Array.isArray(data)) {
-        obj.textContent = data;
+export function renderTemplate({ containerSelector, templateId, items, index }) {
+    const container = document.querySelector(containerSelector);
+    const template = document.getElementById(templateId);
+
+    if (!container || !template) return;
+
+    const fragment = document.createDocumentFragment();
+    items.forEach(item => {
+        fragment.appendChild(createClone(template, item));
+    });
+
+    if (index == null) {
+        container.appendChild(fragment);
         return;
     }
 
-    const [keyPath, value] = data;
-
-    if (!Array.isArray(keyPath)) {
-        obj[keyPath] = value;
-        return;
-    }
-
-    const target = keyPath.slice(0, -1).reduce((currentTarget, currentKey) => currentTarget?.[currentKey], obj);
-    if (!target) return;
-
-    target[keyPath.at(-1)] = value;
+    container.insertBefore(fragment, container.children[index] ?? null);
 }
 
 function createClone(template, data) {
@@ -30,16 +30,62 @@ function createClone(template, data) {
     return clone;
 }
 
-export function renderTemplate({ containerSelector, templateId, items }) {
-    const container = document.querySelector(containerSelector);
-    const template = document.getElementById(templateId);
+function setValue(target, data) {
+    if (!isObject(data)) {
+        target.textContent = data;
+        return;
+    }
 
-    if (!container | !template) return;
+    assign(target, data);
+}
 
-    const fragment = document.createDocumentFragment();
-    items.forEach(item => {
-        fragment.appendChild(createClone(template, item));
+function isObject(value) {
+    return value !== null &&
+        typeof value === "object" &&
+        !Array.isArray(value);
+}
+
+function assign(target, data) {
+    if (!target) return;
+    
+    Object.entries(data).forEach(([key, value]) => {
+        if (isObject(value)) {
+            assign(target[key], value);
+            return;
+        }
+
+        target[key] = value;
     });
+}
 
-    container.appendChild(fragment);
+export function createIcon() {
+    const icon = document.createElement("span");
+    const css = icon.style;
+    
+    css.display = "inline-block";
+    css.backgroundColor = "currentColor";
+    css.maskPosition = "center";
+    css.maskRepeat = "no-repeat";
+    css.maskSize = "contain";
+
+    return {
+        element: icon,
+
+        set className(value) {
+            icon.className = value;
+        },
+
+        set src(value) {
+            css.maskImage = `url(${value})`;
+        },
+
+        set color(value) {
+            css.backgroundColor = value;
+        },
+
+        set size(value) {
+            css.width = value;
+            css.height = value;
+        },
+    };
 }

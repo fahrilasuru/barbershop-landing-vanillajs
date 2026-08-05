@@ -29,9 +29,9 @@
 .hero-image {
     flex: 1 1 300px;
     overflow: hidden;
-    border: 1px solid rgb(212 175 55 / 20%);
+    border: 1px solid oklch(from var(--gold) l c h / 20%);
     border-radius: 30px;
-    box-shadow: 0 20px 40px rgb(0 0 0 / 80%);
+    box-shadow: 0 20px 40px oklch(0 0 0 / 80%);
     text-align: center;
 }
 
@@ -43,7 +43,7 @@
 
 .btn-booking:hover {
     background: var(--gold-light);
-    box-shadow: 0 0 20px  rgb(212 175 55 / 30%);
+    box-shadow: 0 0 20px oklch(from var(--gold) l c h / 30%);
     transform: scale(1.02);
 }
 
@@ -97,7 +97,7 @@
     left: 0;
     width: 100%;
     padding-block: 3px;
-    background: rgb(0 0 0 / 50%);
+    background: oklch(0 0 0 / 50%);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     font-size: 12px;
@@ -118,7 +118,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgb(0 0 0 / 70%);
+    background: oklch(0 0 0 / 70%);
 }
 
 .service-card > * {
@@ -142,4 +142,48 @@
     font-size: 16px;
     font-weight: 400;
     color: var(--description-text-color);
+}
+
+.booking-card {
+    display: block;
+    max-width: 980px;
+    margin: 30px auto 10px;
+    padding: 48px 40px;
+    border-radius: 40px;
+}
+
+.booking-text h3 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.booking-text p {
+    margin-top: 10px;
+    color: var(--description-text-color);
+}
+
+.booking-form input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid oklch(0.35 0 0);
+    border-radius: 60px;
+    background: oklch(0.21 0 0);
+    font-size: 14px;
+    color: var(--light-text-color);
+    outline: none;
+    transition: 0.25s;
+}
+
+.booking-form input:focus {
+    border-color: var(--gold);
+    background: oklch(0.23 0 0);
+}
+
+.booking-form input::placeholder {
+    color: oklch(0.56 0.018 73);
+}
+
+.booking-form button {
+    padding: 14px 40px;
+    border-radius: 60px;
 }

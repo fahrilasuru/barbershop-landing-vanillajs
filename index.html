@@ -5,12 +5,12 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Gentleman Barbershop</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin >
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" >
 
-    <link rel="stylesheet" href="css/global.css" />
-    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/global.css" >
+    <link rel="stylesheet" href="css/components.css" >
 </head>
 <body>
     <header></header>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="hero-image">
-                <img class="img-cover" src="images/illustration.webp" alt="Barbershop illustration" />
+                <img class="img-cover" src="images/illustration.webp" alt="Barbershop illustration" >
             </div>
         </section>
 
@@ -51,13 +51,30 @@
             <p>Kualitas premium untuk pelanggan kami</p>
             <div class="grid services-grid"></div>
         </section>
+
+        <!-- BOOKING -->
+        <section>
+            <h2>Booking <span class="gold">Sekarang</span></h2>
+            <p>Isi form-nya, kami konfirmasi via WhatsApp</p>
+            <div class="card booking-card">
+                <div class="booking-text">
+                    <h3>Jadwalkan <span class="gold">kunjungan</span></h3>
+                    <p>Senin-Sabtu, 09.00 s.d. 21.00<br>Tanjung Plaza, Surabaya</p>
+                </div>
+                <form class="booking-form">
+                    <div class="form-group">
+                        <button type="submit" class="cta btn-booking">Kirim</button>
+                    </div>
+                </form>
+            </div>
+        </section>
     </main>
 
     <footer></footer>
 
     <template id="barber-card-template">
         <div class="card barber-card">
-            <img class="barber-avatar" alt="" data-bind="avatar" />
+            <img class="barber-avatar" alt="" data-bind="avatar" >
             <div class="barber-name" data-bind="name"></div>
             <div class="barber-role" data-bind="role"></div>
             <div class="barber-rating" data-bind="rating"></div>
@@ -66,7 +83,7 @@
 
     <template id="style-card-template">
         <div class="card style-card">
-            <img class="img-cover" alt="" data-bind="photo" />
+            <img class="img-cover" alt="" data-bind="photo" >
             <div class="style-name" data-bind="name"></div>
         </div>
     </template>
@@ -78,6 +95,13 @@
                 <span class="service-price" data-bind="price"></span> /
                 <small class="service-unit" data-bind="unit"></small>
             </div>
+        </div>
+    </template>
+
+    <template id="form-group-template">
+        <div class="form-group">
+            <label data-bind="label"></label>
+            <input data-bind="field" >
         </div>
     </template>
 
