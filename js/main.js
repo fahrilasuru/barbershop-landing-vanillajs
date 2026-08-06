@@ -1,5 +1,15 @@
-import { renderTemplate } from "./utils.js";
+import { scrollInto, renderTemplate } from "./utils.js";
 import * as toast from "./toast.js";
+
+const heroCta = [
+    [".cta-booking", "booking"],
+    [".cta-styles", "styles"],
+];
+
+heroCta.forEach(cta => {
+    const [selector, targetId] = cta;
+    document.querySelector(selector).addEventListener("click", () => scrollInto(targetId));
+});
 
 renderTemplate({
     containerSelector: ".barbers-grid",
@@ -31,7 +41,7 @@ renderTemplate({
     containerSelector: ".services-grid",
     templateId: "service-card-template",
     items: [
-        { card: { style: { backgroundImage: "url(images/haircut.webp)" }}, name: "Haircut", price: "Rp120K", unit: "potong", },
+        { card: { style: { backgroundImage: "url(images/haircut.webp)" }, }, name: "Haircut", price: "Rp120K", unit: "potong", },
         { card: { style: { backgroundImage: "url(images/creambath.webp)" }}, name: "Creambath", price: "Rp150K", unit: "sesi", },
         { card: { style: { backgroundImage: "url(images/coloring.webp)" }}, name: "Coloring", price: "Rp250K", unit: "warna", },
     ],
@@ -101,3 +111,16 @@ async function fakeFetch() {
         message: "Booking diproses, kami akan menghubungi Anda via WhatsApp."
     }
 }
+
+const servicesGrid = document.querySelector(".services-grid");
+servicesGrid.addEventListener("click", (e) => {
+    const card = e.target.closest(`[data-bind="card"`);
+    if(!card) return;
+    
+    const selectedService = card.querySelector(`[data-bind="name"]`).textContent;
+    const servicesField = document.getElementById("services");
+    servicesField.value += (servicesField.value.length === 0 ? "" : ", ")+ selectedService;
+    servicesField.focus();
+
+    scrollInto("booking");
+});

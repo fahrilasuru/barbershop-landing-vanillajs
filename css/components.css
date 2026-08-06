@@ -35,19 +35,19 @@
     text-align: center;
 }
 
-.btn-booking {
+.cta-booking {
     border: none;
     background: var(--gold);
     color: var(--black);
 }
 
-.btn-booking:hover {
+.cta-booking:hover {
     background: var(--gold-light);
     box-shadow: 0 0 20px oklch(from var(--gold) l c h / 30%);
     transform: scale(1.02);
 }
 
-.btn-styles {
+.cta-styles {
     background: transparent;
     border: 1.5px solid var(--gold);
     color: var(--gold);

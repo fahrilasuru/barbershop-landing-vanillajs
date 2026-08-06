@@ -1,3 +1,10 @@
+export function scrollInto(targetId) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    target.scrollIntoView({ behavior: "smooth" });
+}
+
 export function renderTemplate({ containerSelector, templateId, items, index }) {
     const container = document.querySelector(containerSelector);
     const template = document.getElementById(templateId);
