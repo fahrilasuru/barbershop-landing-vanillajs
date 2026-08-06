@@ -68,6 +68,13 @@
                 </form>
             </div>
         </section>
+
+        <!-- REVIEWS -->
+        <section>
+            <h2>Review <span class="gold">Pelanggan</span></h2>
+            <p>Apa kata mereka tentang Gentleman Barbershop</p>
+            <div class="grid reviews-grid"></div>
+        </section>
     </main>
 
     <footer></footer>
@@ -102,6 +109,14 @@
         <div class="form-group">
             <label data-bind="label"></label>
             <input data-bind="field" >
+        </div>
+    </template>
+
+    <template id="review-card-template">
+        <div class="card review-card">
+            <div class="review-rating" data-bind="rating"></div>
+            <div class="review-comment" data-bind="comment"></div>
+            <div class="review-writer" data-bind="writer"></div>
         </div>
     </template>
 

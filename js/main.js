@@ -114,7 +114,7 @@ async function fakeFetch() {
 
 const servicesGrid = document.querySelector(".services-grid");
 servicesGrid.addEventListener("click", (e) => {
-    const card = e.target.closest(`[data-bind="card"`);
+    const card = e.target.closest(`[data-bind="card"]`);
     if(!card) return;
     
     const selectedService = card.querySelector(`[data-bind="name"]`).textContent;
@@ -123,4 +123,14 @@ servicesGrid.addEventListener("click", (e) => {
     servicesField.focus();
 
     scrollInto("booking");
+});
+
+renderTemplate({
+    containerSelector: ".reviews-grid",
+    templateId: "review-card-template",
+    items: [
+        { rating: "★★★★★", comment: "Potongan rapih, barbernya expert, suasana klasiknya bikin betah", writer: "Rizki", },
+        { rating: "★★★★★", comment: "Barber tarbaik di kota! Wangi creambathnya tahan lama", writer: "Bayu", },
+        { rating: "★★★★☆", comment: "Hair coloringnya mantap, tajam dan gak bikin rusak rambut", writer: "Andri", },
+    ],
 });

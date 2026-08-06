@@ -187,3 +187,24 @@
     padding: 14px 40px;
     border-radius: 60px;
 }
+
+.review-card {
+    padding: 24px 20px;
+}
+
+.review-rating {
+    font-size: 18px;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+.review-comment {
+    margin: 10px 0 12px;
+    font-style: italic;
+    color: oklch(0.85 0 0);
+}
+
+.review-writer {
+    font-weight: 600;
+    color: var(--gold-light);
+}
