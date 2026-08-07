@@ -106,6 +106,13 @@ footerSheet.replaceSync(`
 
 class NavigationBar extends HTMLElement {
     #isOpen = false;
+    #ticking = false;
+    #treshold = 50;
+    #hiddenOffset = 0;
+    #lastScroll = 0;
+    #resizeObserver;
+    #scrollHandler = () => this.handleScroll();
+
     #backdrop;
     #navigation;
     #cta;
@@ -131,21 +138,20 @@ class NavigationBar extends HTMLElement {
         hamburger.style.color = "inherit";
         hamburger.style.lineHeight = "1";
         hamburger.style.cursor = "pointer";
-        hamburger.addEventListener("click", () => this.toggle());
+        hamburger.addEventListener("click", () => this.toggleLinks());
 
         this.#backdrop = document.createElement("div");
         this.#backdrop.className = "backdrop";
         this.#backdrop.style.position = "fixed";
         this.#backdrop.style.inset = "0";
         this.#backdrop.style.background = "oklch(0 0 0 / 70%)";
-        this.#backdrop.addEventListener("click", () => this.toggle());
+        this.#backdrop.addEventListener("click", () => this.toggleLinks());
 
         this.#navigation = document.createElement("nav");
         this.#navigation.className = "navigation";
         this.#navigation.style.alignItems = "center";
 
         const navigationLinks = document.createElement("slot");
-        this.#navigation.appendChild(navigationLinks);
 
         this.#cta = document.createElement("a");
         this.#cta.className = "cta";
@@ -154,6 +160,7 @@ class NavigationBar extends HTMLElement {
         this.#cta.style.textDecoration = "none";
         this.#cta.style.letterSpacing = "0.5px";
 
+        this.#navigation.appendChild(navigationLinks);
         container.appendChild(hamburger);
         container.appendChild(this.#backdrop);
         container.appendChild(this.#navigation);
@@ -162,6 +169,28 @@ class NavigationBar extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: "open" });
         shadowRoot.adoptedStyleSheets = [headerSheet];
         shadowRoot.appendChild(container);
+    }
+
+    connectedCallback() {
+        document.documentElement.style.setProperty("--navbar-display", "block");
+        this.style.position = "fixed";
+        this.style.top = "0";
+        this.style.left = "0";
+        this.style.zIndex = "9999";
+        this.style.width = "100%";
+        this.style.backgroundColor = "var(--black)";
+        this.style.transition = "transform 0.3s ease";
+
+        this.updateHeight();
+        this.#resizeObserver = new ResizeObserver(() => this.updateHeight());
+        this.#resizeObserver.observe(this);
+
+        window.addEventListener("scroll", this.#scrollHandler);
+    }
+
+    discknnectedCallback() {
+        this.#resizeObserver.disconnect();
+        window.removeEventListener("scroll", this.#scrollHandler);
     }
 
     static get observedAttributes() {
@@ -182,7 +211,32 @@ class NavigationBar extends HTMLElement {
         }
     }
 
-    toggle() {
+    updateHeight() {
+        const height = this.offsetHeight;
+        document.documentElement.style.setProperty("--navbar-height", `${height}px`);
+        
+        this.#treshold = height;
+    }
+
+    handleScroll() {
+        if (this.#ticking) return;
+
+        requestAnimationFrame(() => this.toggleBar());
+        this.#ticking = true;
+    }
+
+    toggleBar() {
+        const currentScroll = Math.max(0, window.scrollY);
+        const delta = currentScroll - this.#lastScroll;
+
+        this.#hiddenOffset = currentScroll <= this.#treshold ? 0 : Math.min(this.#treshold, Math.max(0, this.#hiddenOffset + delta));
+        this.style.transform = `translateY(-${this.#hiddenOffset}px)`;
+        
+        this.#lastScroll = currentScroll;
+        this.#ticking = false;
+    }
+
+    toggleLinks() {
         this.#backdrop.classList.toggle("show");
         this.#navigation.classList.toggle("show");
     }

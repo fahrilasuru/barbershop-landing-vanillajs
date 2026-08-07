@@ -1,14 +1,20 @@
+navigation-bar {
+    display: var(--navbar-display);
+}
+
 .hero {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
     gap: 40px;
-    padding: 60px clamp(24px, 5vw, 60px) 80px;
+    padding: calc(var(--navbar-height, 64px) + 60px) 0 0 0;
 }
 
 .hero-content {
     flex: 1 1 400px;
+    padding-bottom: 80px;
+    padding-left: clamp(24px, 5vw, 60px);
 }
 
 .hero-content h1 {
@@ -27,12 +33,17 @@
 }
 
 .hero-image {
+    position: relative;
     flex: 1 1 300px;
     overflow: hidden;
-    border: 1px solid oklch(from var(--gold) l c h / 20%);
-    border-radius: 30px;
-    box-shadow: 0 20px 40px oklch(0 0 0 / 80%);
     text-align: center;
+}
+
+.hero-image::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, transparent 70%, black 100%), linear-gradient(to left, transparent 70%, black 100%);
 }
 
 .cta-booking {
@@ -207,4 +218,11 @@
 .review-writer {
     font-weight: 600;
     color: var(--gold-light);
+}
+
+.hero,
+.styles,
+.booking {
+    max-width: initial;
+    background-color: black;
 }

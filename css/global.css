@@ -1,4 +1,6 @@
 :root {
+    --navbar-display: none;
+    --navbar-height: 0;
     --black: oklch(0.18 0 0);
     --dark-grey: oklch(0.22 0 0);
     --gold: oklch(0.77 0.14 88);
