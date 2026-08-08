@@ -18,6 +18,7 @@ headerSheet.replaceSync(`
     .container {
         position: relative;
         justify-content: space-between;
+        padding: 20px;
     }
 
     .navigation {
@@ -59,6 +60,10 @@ headerSheet.replaceSync(`
 
         .container {
             justify-content: center;
+            width: fit-content;
+            margin: 2rem auto 0;
+            padding-inline: 50px;
+            border-radius: 20px;
         }
 
         .hamburger,
@@ -107,9 +112,10 @@ footerSheet.replaceSync(`
 class NavigationBar extends HTMLElement {
     #isOpen = false;
     #ticking = false;
-    #treshold = 50;
+    #threshold = 50;
     #hiddenOffset = 0;
     #lastScroll = 0;
+    #prefersReducedMotion;
     #resizeObserver;
     #scrollHandler = () => this.handleScroll();
 
@@ -125,8 +131,9 @@ class NavigationBar extends HTMLElement {
         container.style.display = "flex";
         container.style.alignItems = "center";
         container.style.gap = "2rem";
-        container.style.padding = "20px";
-        container.style.borderBottom = "1px solid oklch(from var(--gold) l c h / 20%)";
+        container.style.maxWidth = "1200px";
+        container.style.border = "1px solid oklch(from var(--gold) l c h / 20%)";
+        container.style.backgroundColor = "var(--dark-grey)";
         
         const hamburger = document.createElement("button");
         hamburger.innerHTML = "&#9776";
@@ -172,13 +179,12 @@ class NavigationBar extends HTMLElement {
     }
 
     connectedCallback() {
-        document.documentElement.style.setProperty("--navbar-display", "block");
+        document.documentElement.style.setProperty("--navbar-visibility", "visible");
         this.style.position = "fixed";
         this.style.top = "0";
         this.style.left = "0";
         this.style.zIndex = "9999";
         this.style.width = "100%";
-        this.style.backgroundColor = "var(--black)";
         this.style.transition = "transform 0.3s ease";
 
         this.updateHeight();
@@ -186,11 +192,12 @@ class NavigationBar extends HTMLElement {
         this.#resizeObserver.observe(this);
 
         window.addEventListener("scroll", this.#scrollHandler);
+        this.#prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     }
 
     discknnectedCallback() {
         this.#resizeObserver.disconnect();
-        window.removeEventListener("scroll", this.#scrollHandler);
+        window.removeEventListener("scroll", this.#scrollHandler, { passive: true });
     }
 
     static get observedAttributes() {
@@ -215,7 +222,7 @@ class NavigationBar extends HTMLElement {
         const height = this.offsetHeight;
         document.documentElement.style.setProperty("--navbar-height", `${height}px`);
         
-        this.#treshold = height;
+        this.#threshold = height;
     }
 
     handleScroll() {
@@ -229,11 +236,27 @@ class NavigationBar extends HTMLElement {
         const currentScroll = Math.max(0, window.scrollY);
         const delta = currentScroll - this.#lastScroll;
 
-        this.#hiddenOffset = currentScroll <= this.#treshold ? 0 : Math.min(this.#treshold, Math.max(0, this.#hiddenOffset + delta));
-        this.style.transform = `translateY(-${this.#hiddenOffset}px)`;
-        
+        this.#hiddenOffset = currentScroll <= this.#threshold ? 0 : Math.min(this.#threshold, Math.max(0, this.#hiddenOffset + delta));
+        if (this.#prefersReducedMotion) {
+            this.style.transform = this.#hiddenOffset > this.#threshold ? "translateY(-100%)" : "translateY(0)";
+        } else {
+            this.style.transform = `translateY(-${this.#hiddenOffset}px)`
+        }
+
+        this.updateAccessibility();
         this.#lastScroll = currentScroll;
         this.#ticking = false;
+    }
+
+    updateAccessibility() {
+        const isFullyHidden = this.#hiddenOffset >= this.#threshold;
+
+        this.toggleAttribute("inert", isFullyHidden);
+        if (isFullyHidden) {
+            this.setAttribute("aria-hidden", "true");
+        } else {
+            this.removeAttribute("aria-hidden");
+        }
     }
 
     toggleLinks() {

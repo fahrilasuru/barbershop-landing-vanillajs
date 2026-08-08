@@ -1,5 +1,5 @@
 :root {
-    --navbar-display: none;
+    --navbar-visibility: hidden;
     --navbar-height: 0;
     --black: oklch(0.18 0 0);
     --dark-grey: oklch(0.22 0 0);

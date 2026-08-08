@@ -1,5 +1,5 @@
 navigation-bar {
-    display: var(--navbar-display);
+    visibility: var(--navbar-visibility);
 }
 
 .hero {
